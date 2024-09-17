@@ -1,0 +1,5836 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Una vista centralizada para obtener una visión general de los proyectos de desarrollo, con información de entrega efectiva, calidad y velocidad del mismo.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 30,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<style type=\"text/css\">\n .css-15okvyg, .css-15okvyg {\n    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,0,40,1) 25%, rgba(250,1,9,1) 50%, rgba(255,0,9,1) 75%, rgba(245,245,245,1) 100%) !important;\n  }\n  .css-dzzy4f {\n    background: red !important;\n  }\n  .css-1kficfj, .css-1p0t9ol-Icon, .css-fmaj2t-Icon{\n    color: white !important;\n  }\n\n  .css-1bht7sk a:hover, css-1bht7sk a:focus-visible {\n    color: white !important;\n    text-decoration: underline !important;\n  }\n\n  ol li .css-13q6pv9{\n    color: rgb(36, 41, 46) !important;\n  }\n\n  .css-13l8md7-panel-container {\n    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5) !important;\n  }\n\n  .css-13l8md7-panel-container {\n    border-radius: 15px;\n  }\n\n  .css-1ogk8cm::before {\n    background-image: linear-gradient(0.01deg, rgb(241 237 237) -31.2%, rgb(255 106 0) 113.07%) !important;  \n  }\n\n  .css-1ogk8cm {\n    background-color: rgb(170 52 52 / 30%);\n  }\n\n  button#mega-menu-toggle {\n    filter: brightness(0.5);\n  }\n  \n  button.css-xv13ed {\n    filter: brightness(0.5);\n  }\n\n  button.css-iobqob-toolbar-button-panel-header-state-button {\n    border-radius: 13px 0 0 0;\n  }\n</style>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "10.4.1",
+      "title": "Productividad Insights",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Tabla que muestra la fecha de inicio y fin de los últimos 10 Sprint  creados en el proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 13,
+        "x": 0,
+        "y": 1
+      },
+      "id": 71,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select name as Sprint, started_date as Fecha_Inicio, completed_date as Fecha_Fin FROM sprints\r\nwhere original_board_id = '${proyecto}'\r\nORDER BY completed_date DESC\r\nlimit 10",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "DETALLE SPRINT",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Duración del sprint en semanas ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 13,
+        "y": 1
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "/^resultado$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  CASE \r\n   WHEN DATEDIFF(ended_date, started_date) <= 8 THEN \"1 semana\"\r\n   WHEN DATEDIFF(ended_date, started_date) >= 8 THEN \"2 semanas\"\r\n   WHEN DATEDIFF(ended_date, started_date) > 15 and DATEDIFF(ended_date, started_date) <= 21  THEN \"3 semanas\"\r\n   ELSE NULL  \r\n  END AS resultado\r\nfrom sprints \r\nWHERE original_board_id = '${proyecto}'\r\nand status = 'ACTIVE'\r\nLIMIT 1",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "DURACIÓN DEL SPRINT",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Duración total del proyecto en meses",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 18,
+        "y": 1
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "/^CONCAT\\(ROUND\\(DATEDIFF\\(max\\(ended_date\\), min\\(started_date\\)\\) / 30, 0\\), ' meses'\\)$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CONCAT(ROUND(DATEDIFF(max(ended_date), min(started_date)) / 30, 0), ' meses')\r\nFROM sprints WHERE original_board_id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TIEMPO DE VIDA DEL PROYECTO",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Nombre general del proyecto ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#fe0808",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 13,
+        "y": 3
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "/^project$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  CASE\r\n    WHEN id = 'jira:JiraBoard:1:42' THEN 'OAUTH'\r\n    WHEN id = 'jira:JiraBoard:2:8' THEN 'VIVI'\r\n    WHEN id = 'jira:JiraBoard:3:147' THEN 'FRICTIONLESS'\r\n    WHEN id = 'jira:JiraBoard:4:81' THEN 'SUPERAPP'\r\n    WHEN id = 'jira:JiraBoard:5:64' THEN 'PASSWORD'\r\n\t\tWHEN id = 'jira:JiraBoard:6:139' THEN 'ZONA PUBLICA'\r\n\t\tWHEN id = 'jira:JiraBoard:6:138' THEN 'APP EMPRESAS'\r\n\t\tWHEN id = 'jira:JiraBoard:6:83' THEN 'MULTIBANCO'\r\n\t\tWHEN id = 'jira:JiraBoard:6:70' THEN 'CONSUMO PSE'\r\n  END AS project\r\n  FROM boards\r\nWHERE id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "PROYECTO",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Numero de personas que componen el equipo del proyecto\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 18,
+        "y": 3
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.assignee_name) AS total_Usuarios\r\nFROM\r\n  issues i\r\n  LEFT JOIN sprint_issues si ON i.id = si.issue_id\r\n  LEFT JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi ON i.id = bi.issue_id\r\n  JOIN boards b ON bi.board_id = b.id\r\nWHERE\r\n\ti.type like '%HISTORIA%'\r\n\tand s.name in (${sprint})\r\n\tand b.id = '${proyecto}'\r\n\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "NUMERO DE COLABORADORES",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Numero de sprint realizados en el proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 13,
+        "y": 5
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(DISTINCT(name)) \r\nFROM sprints\r\nWHERE original_board_id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CANTIDAD SPRINT PLANEADOS",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Entrega Efectiva (HU: Historia de usuario)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Grafica que muestra el número de historias cerradas por mes durante el proyecto\n ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 0,
+        "y": 8
+      },
+      "id": 12,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH _requirements AS (\r\n  SELECT\r\n    DATE_ADD(DATE(i.created_date), INTERVAL -DAYOFMONTH(DATE(i.created_date)) + 1 DAY) AS time,\r\n    COUNT(DISTINCT CASE WHEN i.status = 'DONE' THEN i.id ELSE NULL END) AS Historias_completadas\r\n  FROM\r\n    issues i\r\n    JOIN board_issues bi ON i.id = bi.issue_id\r\n    JOIN boards b ON bi.board_id = b.id\r\n    JOIN board_sprints bs ON b.id = bs.board_id\r\n    JOIN sprints s ON bs.sprint_id = s.id  \r\n  WHERE\r\n    i.type like '%HISTORIA%'\r\n    AND bi.board_id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\n \r\nSELECT\r\n  time,\r\n  Historias_completadas\r\nFROM _requirements\r\nORDER BY time;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TENDENCIA DE ENTREGA HU (Durante todo el proyecto)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de historias de usuario completadas en toda la ejecución o por sprint \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 11,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.id)\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE\r\n\ti.type like '%HISTORIA%'\r\n  and i.status = 'DONE'\r\n\tand s.name in (${sprint})\r\n\tand b.id = '${proyecto}'\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "HU COMPLETADAS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de historias de usuario comprometidas en toda la ejecución o por sprint \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#7a7777",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 17,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.id)\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE\r\n\ti.type like '%HISTORIA%'\r\n\tand s.name in (${sprint})\r\n\tand b.id = '${proyecto}'\r\n\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "HU COMPROMETIDAS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Promedio de Historias de usuario completadas en toda la ejecución del proyecto o por sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 11,
+        "y": 12
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH _requirements AS (\r\n    SELECT\r\n      COUNT(DISTINCT i.id) AS total_count,\r\n      COUNT(DISTINCT CASE WHEN i.status = 'DONE' THEN i.id ELSE NULL END) AS delivered_count\r\n    FROM\r\n      issues i\r\n      JOIN sprint_issues si on i.id = si.issue_id\r\n      JOIN sprints s ON si.sprint_id = s.id\r\n      JOIN board_issues bi on i.id = bi.issue_id\r\n      JOIN boards b on bi.board_id = b.id\r\n    WHERE\r\n      i.type like '%HISTORIA%'\r\n      and s.name in (${sprint})\r\n      and b.id = '${proyecto}'\r\n  )\r\n   \r\n  SELECT\r\n    NOW() AS time,\r\n    (delivered_count / total_count) * 100  AS requirement_delivery_rate_percentage\r\n  FROM _requirements",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "PORCENTAJE DE CUMPLIMIENTO (HU)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Tiempo promedio que le toma al equipo cerrar una historia de usuario ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "light-red",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 7
+              },
+              {
+                "color": "#ff001e",
+                "value": 15
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 17,
+        "y": 12
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n  ROUND(AVG(lead_time_minutes / 1440), 0) AS value\r\nfrom\r\n    issues i\r\n    join board_issues bi on i.id = bi.issue_id\r\n    join boards b on bi.board_id = b.id\r\n    join board_sprints bs ON b.id = bs.board_id\r\n    join sprints s ON bs.sprint_id = s.id  \r\nwhere\r\n  i.type like '%HISTORIA%'\r\n  and i.status = 'DONE'\r\n  and bi.board_id = '${proyecto}'\r\n  and s.name in (${sprint})",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "LEAD TIME (DIAS)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Grafica que muestra el total de las historias por el estado en que se encuentran",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 0,
+        "y": 17
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "with _iss as(\r\n  SELECT\r\n    i.status as estado,\r\n    COUNT(DISTINCT i.id) as cuenta\r\n  FROM\r\n    issues i\r\n    JOIN sprint_issues si on i.id = si.issue_id\r\n    JOIN sprints s ON si.sprint_id = s.id\r\n    JOIN board_issues bi on i.id = bi.issue_id\r\n    JOIN boards b on bi.board_id = b.id\r\n    WHERE\r\n      i.type like '%HISTORIA%'\r\n      and s.name in (${sprint})\r\n      and b.id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\nSELECT\r\n estado AS st,\r\n cuenta AS cu\r\nFROM _iss\r\nORDER by estado",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ESTADOS HU",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Grafica que muestra el total de las historias por tipo en el proyecto y sprints",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "shades"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "cu"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 11,
+        "y": 17
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "with _iss as(\r\n  SELECT\r\n    i.type as tipo,\r\n    COUNT(DISTINCT i.id) as cuenta\r\n  FROM\r\n    issues i\r\n    JOIN sprint_issues si on i.id = si.issue_id\r\n    JOIN sprints s ON si.sprint_id = s.id\r\n    JOIN board_issues bi on i.id = bi.issue_id\r\n    JOIN boards b on bi.board_id = b.id\r\n    WHERE s.name in (${sprint})\r\n      and b.id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\nSELECT\r\n tipo AS st,\r\n cuenta AS cu\r\nFROM _iss\r\nORDER by tipo",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TIPO ISSUE",
+      "type": "piechart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Entrega Efectiva (SP: Puntos de historia)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Grafica que muestra la cantidad de puntos de historias completados por mes durante el proyecto\n ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 27
+      },
+      "id": 70,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH _requirements AS (\r\n  SELECT\r\n    DATE_ADD(DATE(i.created_date), INTERVAL -DAYOFMONTH(DATE(i.created_date)) + 1 DAY) AS time,\r\n    SUM(DISTINCT CASE WHEN i.status = 'DONE' THEN i.story_point ELSE NULL END) AS Story_point_completados\r\n  FROM\r\n    issues i\r\n    JOIN board_issues bi ON i.id = bi.issue_id \r\n  WHERE\r\n    i.type like '%HISTORIA%'\r\n    AND bi.board_id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\n \r\nSELECT\r\n  time,\r\n  Story_point_completados\r\nFROM _requirements\r\nORDER BY time;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TENDENCIA DE PUNTOS DE HISTORIA (Durante todo el proyecto)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Promedio de puntos de historias completadas en toda la ejecución del proyecto o por sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#fd001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 11,
+        "y": 27
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH _requirements AS (\r\n  SELECT\r\n    SUM(i.story_point) AS total_story_points,\r\n    SUM(CASE WHEN i.status = 'DONE' THEN i.story_point ELSE 0 END) AS done_story_points\r\n  FROM issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id \r\n  JOIN sprints s ON si.sprint_id = s.id \r\n  JOIN board_issues bi ON i.id = bi.issue_id\r\n  join boards b on bi.board_id = b.id\r\n  WHERE\r\n    i.type like '%HISTORIA%'\r\n    AND s.name in (${sprint})\r\n    AND bi.board_id = '${proyecto}'\r\n)\r\n \r\nSELECT\r\n  NOW() AS time,\r\n  (done_story_points / total_story_points) * 100 AS done_story_points_percentage\r\nFROM _requirements;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "PORCENTAJE DE CUMPLIMIENTO SP",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Puntos de historias promedio por historia de usuario cerrados en todo el proyecto\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 17,
+        "y": 27
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "  SELECT\r\n   SUM(i.story_point) / COUNT(i.id) AS average_story_points_per_issue\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si ON i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi ON i.id = bi.issue_id\r\n  JOIN boards b ON bi.board_id = b.id\r\nWHERE\r\n  i.type like '%HISTORIA%'\r\n  AND s.name IN (${sprint})\r\n  AND b.id = '${proyecto}'\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "PUNTOS PROMEDIO POR (HU)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de puntos de historias completadas en toda la ejecución o por sprint \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 11,
+        "y": 31
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  SUM(i.story_point) AS total_story_points\r\nFROM \r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id \r\n  JOIN sprints s ON si.sprint_id = s.id \r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE \r\n  i.type like '%HISTORIA%'\r\n  and i.status = 'DONE'\r\n  and s.name in (${sprint})\r\n  and b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "SP COMPLETADOS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de puntos de historias comprometidas en toda la ejecución o por sprint \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 17,
+        "y": 31
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 80
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  SUM(i.story_point) AS total_story_points\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  join board_issues bi on i.id = bi.issue_id\r\n  join boards b on bi.board_id = b.id\r\nWHERE\r\n  i.type like '%HISTORIA%'\r\n  and s.name in (${sprint})\r\n  and b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "SP COMPROMETIDOS",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 7,
+      "panels": [],
+      "title": "Velocidad",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Numero de despliegues acumulados por ambiente  en toda la ejecución del proyecto\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 36
+      },
+      "id": 16,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT cd.id) AS count, \r\n  CASE \r\n    WHEN UPPER(cd.environment) LIKE '%PR%' THEN 'PRODUCTION'\r\n\tWHEN UPPER(cd.environment) LIKE '%INT%' OR UPPER(cd.environment) LIKE '%DEV%' THEN 'INTEGRATION'\r\n\tWHEN UPPER(cd.environment) LIKE '%LAB%' THEN 'LABORATORY'\r\n\tELSE 'OTHERS'\r\n  END AS env\r\nFROM cicd_deployments cd\r\nJOIN cicd_deployment_commits cdc ON cd.id = cdc.cicd_deployment_id\r\nWHERE\r\n  cd.result = 'SUCCESS' AND \r\n  UPPER(cdc.repo_url) LIKE\r\n  CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\nGROUP BY env",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CANTIDAD DE DESPLIEGUES POR AMBIENTE EN TODO EL PROYECTO",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Histórico de despliegues por ambiente en el tiempo de ejecución del proyecto o sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 11,
+        "y": 36
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "with _requirements as(\r\nSELECT \r\n  DATE_ADD(date(finished_date), INTERVAL -DAYOFMONTH(date(finished_date))+1 DAY) AS deployment_month,\r\n  1.0 * count(distinct case when environment IN ('lab', 'laboratory') then id else null end)/count(distinct id) as deployment_lab\r\nFROM \r\n  cicd_deployments\r\nWHERE\r\n UPPER(_raw_data_params) LIKE \r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\nGROUP BY 1\r\n) \r\nselect\r\n  deployment_month,\r\n  deployment_lab\r\nfrom _requirements\r\norder by deployment_month",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "with _requirements as(\r\nSELECT \r\n  DATE_ADD(date(finished_date), INTERVAL -DAYOFMONTH(date(finished_date))+1 DAY) AS deployment_month,\r\n  1.0 * count(distinct case when environment IN ('prd', 'production') then id else null end)/count(distinct id) as deployment_prd\r\nFROM \r\n  cicd_deployments\r\nWHERE\r\n UPPER(_raw_data_params) LIKE\r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\nGROUP BY 1\r\n) \r\nselect\r\n  deployment_month,\r\n  deployment_prd\r\nfrom _requirements\r\norder by deployment_month",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "with _requirements as(\r\nSELECT \r\n  DATE_ADD(date(finished_date), INTERVAL -DAYOFMONTH(date(finished_date))+1 DAY) AS deployment_month,\r\n  1.0 * count(distinct case when environment IN ('dev', 'integration') then id else null end)/count(distinct id) as deployment_dev\r\nFROM \r\n  cicd_deployments\r\nWHERE\r\n UPPER(_raw_data_params) LIKE\r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\nGROUP BY 1\r\n)\r\nselect\r\n  deployment_month,\r\n  deployment_dev\r\nfrom _requirements\r\norder by deployment_month",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TENDENCIA DE DESPLIEGUE POR AMBIENTE EN TODO EL PROYECTO",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Cantidad promedio de despliegues realizados en el ambiente de producción durante un mes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "deploy"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 44
+      },
+      "id": 34,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    ROUND(AVG(deployment_count), 0) AS average_deployments_per_month\r\n  FROM (\r\n    SELECT \r\n      DATE_FORMAT(finished_date, '%Y-%m') AS deployment_month,\r\n      COUNT(*) AS deployment_count\r\n    FROM \r\n      cicd_deployments\r\n    WHERE \r\n      environment IN ('prd', 'production', 'PRODUCTION')\r\n      AND UPPER(_raw_data_params) LIKE\r\n      CASE \r\n        WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n        WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n        WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n        ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n      END\r\n      AND result = 'SUCCESS'\r\n    GROUP BY \r\n      DATE_FORMAT(finished_date, '%Y-%m')\r\n  ) AS monthly_deployments",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "FRECUENCIA DE DESPLIEGUE MENSUAL (PRODUCTION)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Mide la proporción de PRs cerrados (incluyendo los fusionados y los cerrados sin fusionar) respecto al total de PRs creados en el toda la ejecución del proyecto o sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 7,
+        "y": 44
+      },
+      "id": 37,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH pull_request_counts AS (\r\nSELECT\r\n    COUNT(DISTINCT pr.id) AS total_count,\r\n    COUNT(DISTINCT CASE WHEN pr.status IN ('MERGED') THEN pr.id ELSE NULL END) AS delivery_count\r\nFROM\r\n    pull_requests pr\r\nWHERE UPPER(url) LIKE\r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\n and base_ref in ('main')  \r\n    )\r\nSELECT\r\n    (delivery_count / total_count) * 100 AS open_pull_request_rate_percentage\r\nFROM\r\n    pull_request_counts",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "EFICIENCIA DE CAMBIOS (PRODUCTION)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Permite ver el tiempo que le toma a una promoción de código la revisión de par para continua con la fusión en el siguiente ambiente\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "horas"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 13,
+        "y": 44
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n  AVG(TIMESTAMPDIFF(Minute,created_date,merged_date)/480)\r\nfrom\r\n    pull_requests\r\nwhere\r\n    merged_date is not null\r\n    and UPPER(url) LIKE\r\n    CASE \r\n      WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n      WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n      WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n      ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n    END\r\n    and base_ref in ('main', 'laboratory', 'integration');",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TIEMPO MEDIO DE REVISION (HORAS)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Evaluación de desempeño de entrega en producción (ALTO si despliega mas de 4 veces por mes) (MEDIO si despliega al menos 1 vez al mes) y BAJO si el tiempo es mayor)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": ""
+              },
+              {
+                "color": "red",
+                "value": 80.0001
+              },
+              {
+                "color": "#EAB839",
+                "value": 90.0001
+              }
+            ]
+          },
+          "unit": "deploy"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 19,
+        "y": 44
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^deployment_rate$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  CASE\r\n    WHEN average_deployments_per_month >= 4 THEN 'Alto'\r\n    WHEN average_deployments_per_month >= 1 THEN 'Medio'\r\n    ELSE 'Bajo'\r\n  END AS deployment_rate\r\nFROM (\r\n  SELECT \r\n    AVG(deployment_count) AS average_deployments_per_month\r\n  FROM (\r\n    SELECT \r\n      DATE_FORMAT(finished_date, '%Y-%m') AS deployment_month,\r\n      COUNT(*) AS deployment_count\r\n    FROM \r\n      cicd_deployments\r\n    WHERE \r\n      environment IN ('prd','production')\r\n      AND finished_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 2 YEAR)\r\n      AND UPPER(_raw_data_params) LIKE '%DAVI-${proyecto:text}-%'\r\n    GROUP BY \r\n      DATE_FORMAT(finished_date, '%Y-%m')\r\n  ) AS monthly_deployments\r\n) AS average_per_month;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "DESEMPEÑO",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Cantidad promedio de despliegues realizados en el ambiente de laboratorio durante un mes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "deploy"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 48
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    ROUND(AVG(deployment_count), 0) AS average_deployments_per_month\r\n  FROM (\r\n    SELECT \r\n      DATE_FORMAT(finished_date, '%Y-%m') AS deployment_month,\r\n      COUNT(*) AS deployment_count\r\n    FROM \r\n      cicd_deployments\r\n    WHERE \r\n      environment IN ('lab', 'laboratory')\r\n      AND UPPER(_raw_data_params) LIKE\r\n      CASE \r\n        WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n        WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n        WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n        ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n      END\r\n      AND result = 'SUCCESS'\r\n    GROUP BY \r\n      DATE_FORMAT(finished_date, '%Y-%m')\r\n  ) AS monthly_deployments",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "FRECUENCIA DE DESPLIEGUE MENSUAL (LABORATORY)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Mide la proporción de PRs cerrados (incluyendo los fusionados y los cerrados sin fusionar) respecto al total de PRs creados en el toda la ejecución del proyecto o sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 7,
+        "y": 48
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH pull_request_counts AS (\r\nSELECT\r\n    COUNT(DISTINCT pr.id) AS total_count,\r\n    COUNT(DISTINCT CASE WHEN pr.status IN ('MERGED') THEN pr.id ELSE NULL END) AS delivery_count\r\nFROM\r\n    pull_requests pr\r\nWHERE UPPER(url) LIKE \r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\n and base_ref in ('lab', 'laboratory')    \r\n    )\r\nSELECT\r\n    (delivery_count / total_count) * 100 AS open_pull_request_rate_percentage\r\nFROM\r\n    pull_request_counts",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "EFICIENCIA DE CAMBIOS (LABORATORY)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Tiempo que toma en completarse la historia de usuario, desde que se pone es estado de progres hasta su finalización o DONE.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "horas"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 13,
+        "y": 50
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT ROUND(AVG(T.tiempo_total), 0) FROM (\r\nSELECT\r\n  TIMESTAMPDIFF(DAY,i.created_date, i.resolution_date) as tiempo_total\r\nFROM  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE\r\n  i.type like '%HISTORIA%'\r\n  and i.status = 'DONE'\r\n  AND i.resolution_date is not null\r\n  and b.id = '${proyecto}'\r\nGROUP BY i.id) AS T",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CYCLE TIME",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Cantidad promedio de despliegues realizados en el ambiente de integración durante un mes.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "deploy"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 52
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    ROUND(AVG(deployment_count), 0) AS average_deployments_per_month\r\n  FROM (\r\n    SELECT \r\n      DATE_FORMAT(finished_date, '%Y-%m') AS deployment_month,\r\n      COUNT(*) AS deployment_count\r\n    FROM \r\n      cicd_deployments\r\n    WHERE \r\n      environment IN ('dev','integration')\r\n      AND result = 'SUCCESS'\r\n      AND UPPER(_raw_data_params) LIKE \r\n      CASE \r\n        WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n        WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n        WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n        ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n      END\r\n    GROUP BY \r\n      DATE_FORMAT(finished_date, '%Y-%m')\r\n  ) AS monthly_deployments",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "FRECUENCIA DE DESPLIEGUE MENSUAL (INTEGRATION)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Mide la proporción de PRs cerrados (incluyendo los fusionados y los cerrados sin fusionar) respecto al total de PRs creados en el toda la ejecución del proyecto o sprint\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 7,
+        "y": 52
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 70
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH pull_request_counts AS (\r\nSELECT\r\n    COUNT(DISTINCT pr.id) AS total_count,\r\n    COUNT(DISTINCT CASE WHEN pr.status IN ('MERGED') THEN pr.id ELSE NULL END) AS delivery_count\r\nFROM\r\n    pull_requests pr\r\nWHERE UPPER(url) LIKE\r\n CASE \r\n    WHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n    WHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n    WHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n    ELSE UPPER('%DAVI-${proyecto:text}-%')\r\n  END\r\n and base_ref in ('integration', 'dev')\r\n    )\r\nSELECT\r\n    (delivery_count / total_count) * 100 AS open_pull_request_rate_percentage\r\nFROM\r\n    pull_request_counts",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "EFICIENCIA DE CAMBIOS (INTEGRATION)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Bugs son defectos en el código que podrían causar errores o comportamientos inesperados en el software. \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "#ff001e",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 56
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT count(distinct id) as 'Bugs'\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND type = 'BUG'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "BUGS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Vulnerabilidades son debilidades en el código que pueden ser explotadas para comprometer la seguridad del software\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "#ff001e",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 7,
+        "y": 56
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(distinct id) AS 'Vulnerabilities'\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND type = 'VULNERABILITY'\r\nAND status != 'CLOSED'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "VULNERABILIDADES",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Porcentaje de Smart Commit realizados bajo los lineamientos (compara los realizados en github con los reportados en Jira.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 13,
+        "y": 56
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n((SELECT COUNT(message) FROM commits\r\nWHERE (message LIKE '%${proyecto:text}-%' AND message LIKE '%fix%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%feat%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%build%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%chore%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%docs%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%perf%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%refactor%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%revert%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%style%')\r\n  OR (message LIKE '%${proyecto:text}-%' AND message LIKE '%test%')) * 100) /\r\n(SELECT COUNT(message) FROM commits)\r\nFROM commits\r\nLIMIT 1\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "GENERAL SMART COMMIT",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 60
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Calidad",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Este indicador mide la cantidad de líneas de código en el proyecto. Puede incluir tanto el código fuente como los comentarios y las líneas en blanco.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "shades",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 61
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CONCAT(ROUND(sum(lines_to_cover) / 1000, 0),'k Lineas')\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "VOLUMEN DE COBERTURA",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Son recomendaciones proporcionadas por SonarQube para mejorar la eficiencia y la calidad del código\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 61
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(distinct id) as 'Code Smells'\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND type = 'CODE_SMELL'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "SUGERENCIAS DE OPTIMIZACION",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Evaluación total de sonar con los ponderados según los lineamientos (30% Cobertura de Pruebas) (30 %Code Smells)(30% Lineas Duplicadas)(10% (Busgs, Mantenibilidad, vulnerabilidades, seguridad, deuda)\n \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 12,
+        "y": 61
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n((SELECT\r\n(SELECT ((ROUND((sum(lines_to_cover) - sum(uncovered_lines)) / sum(lines_to_cover) * 100, 1)-80) * 1.5) / 100 as valor\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND) +\r\n(SELECT\r\n  (1 - ROUND(sum(duplicated_lines) / sum(num_of_lines) * 100, 1)) * 0.3 as lines_duplicated\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND)\r\nFROM cq_file_metrics\r\nLIMIT 1) +\r\n(SELECT \r\n(SELECT  \r\n (CASE\r\n  WHEN COUNT(distinct id) = 0 THEN '100'\r\n  WHEN COUNT(distinct id) > 0 AND COUNT(distinct id) <= 10 THEN '90'\r\n  WHEN COUNT(distinct id) > 10 AND COUNT(distinct id) <= 20 THEN '80'\r\n  WHEN COUNT(distinct id) > 20 AND COUNT(distinct id) <= 40 THEN '60'\r\n  WHEN COUNT(distinct id) > 40 AND COUNT(distinct id) <= 60 THEN '40'\r\n  WHEN COUNT(distinct id) > 60 AND COUNT(distinct id) <= 80 THEN '20'\r\n  WHEN COUNT(distinct id) > 80 THEN '0'\r\n  END) * 0.3 / 100 as 'Code Smells'\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND type = 'CODE_SMELL') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.025' ELSE '0'\r\nend as vulnerability\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n AND type = 'VULNERABILITY'\r\n AND status != 'CLOSED') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.05' ELSE '0'\r\nend as bug\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n AND type = 'BUG'\r\n AND status != 'CLOSED') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.025' ELSE '0'\r\nend as hotspots\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n\t  AND type = 'HOTSPOTS'\r\n    AND status != 'CLOSED'\r\n    )\r\n\t  FROM (select DISTINCT(id) from cq_issues) as sumatoria\r\n LIMIT 1)) * 100 AS indicador_calidad\r\n FROM cq_issues ci JOIN cq_file_metrics cfm ON ci.project_key = cfm.project_key\r\nLIMIT 1",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "GENERAL SONAR",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Calificación total del proyecto segun el indicador (80% de general sonar y 20 % de smart Commit)\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 17,
+        "y": 61
+      },
+      "id": 43,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT(\r\nSELECT(\r\n(SELECT\r\n(SELECT ((ROUND((sum(lines_to_cover) - sum(uncovered_lines)) / sum(lines_to_cover) * 100, 1)-80) * 1.5) / 100 as valor\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND) +\r\n(SELECT\r\n  (1 - ROUND(sum(duplicated_lines) / sum(num_of_lines) * 100, 1)) * 0.3 as lines_duplicated\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND)\r\nFROM cq_file_metrics\r\nLIMIT 1) +\r\n(SELECT\r\n(SELECT  \r\n (CASE\r\n  WHEN COUNT(distinct id) = 0 THEN '100'\r\n  WHEN COUNT(distinct id) > 0 AND COUNT(distinct id) <= 10 THEN '90'\r\n  WHEN COUNT(distinct id) > 10 AND COUNT(distinct id) <= 20 THEN '80'\r\n  WHEN COUNT(distinct id) > 20 AND COUNT(distinct id) <= 40 THEN '60'\r\n  WHEN COUNT(distinct id) > 40 AND COUNT(distinct id) <= 60 THEN '40'\r\n  WHEN COUNT(distinct id) > 60 AND COUNT(distinct id) <= 80 THEN '20'\r\n  WHEN COUNT(distinct id) > 80 THEN '0'\r\n  END) * 0.3 / 100 as 'Code Smells'\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND type = 'CODE_SMELL') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.025' ELSE '0'\r\nend as vulnerability\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n AND type = 'VULNERABILITY'\r\n AND status != 'CLOSED') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.05' ELSE '0'\r\nend as bug\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n AND type = 'BUG'\r\n AND status != 'CLOSED') +\r\n(SELECT case WHEN COUNT(distinct id) = 0 THEN '0.025' ELSE '0'\r\nend as hotspots\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n    AND type = 'HOTSPOTS'\r\n    AND status != 'CLOSED')\r\n    FROM (select DISTINCT(id) from cq_issues) as sumatoria\r\n LIMIT 1)) * 80 AS indicador_calidad\r\n FROM cq_issues ci JOIN cq_file_metrics cfm ON ci.project_key = cfm.project_key\r\nLIMIT 1)\r\n+\r\n(SELECT\r\n(((SELECT COUNT(message) FROM commits\r\nWHERE (message LIKE '%${proyecto:text}-%' AND message LIKE '%fix%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%feat%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%build%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%chore%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%docs%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%perf%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%refactor%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%revert%')\r\nOR (message LIKE '%${proyecto:text}-%' AND message LIKE '%style%')\r\n  OR (message LIKE '%${proyecto:text}-%' AND message LIKE '%test%')) * 100) /\r\n(SELECT COUNT(message) FROM commits)) * 0.2\r\nFROM commits\r\nLIMIT 1) AS total",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "GENERAL CALIDAD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "representa el costo estimado del trabajo adicional necesario para corregir los problemas de calidad en el código\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 65
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  IFNULL(\r\n    CONCAT(\r\n      FLOOR(SUM(debt) / 8 / 60), \r\n      ' day(s) ', \r\n      FLOOR((SUM(debt) % 480) / 60), \r\n      ' hour(s)'\r\n    ), \r\n    'Sin deuda'\r\n  ) AS Debt\r\nFROM cq_issues\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nAND status != 'CLOSED';",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "DEUDA TECNICA",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "mide el porcentaje de código que está cubierto por pruebas unitarias\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 90
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 12,
+        "y": 65
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CONCAT(ROUND((sum(lines_to_cover) - sum(uncovered_lines)) / sum(lines_to_cover) * 100, 1), '% ')\r\nFROM cq_file_metrics\r\nWHERE UPPER(project_key) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "COBERTURA DE PRUEBAS",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 69
+      },
+      "id": 46,
+      "panels": [],
+      "title": "Testing",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de historias de tipo Test Execution en toda la ejecución o por sprint",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 70
+      },
+      "id": 72,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^COUNT\\(DISTINCT i\\.id\\)$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.id)\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE\r\n\ti.type like 'TEST EXECUTION'\r\n\tand s.name in (${sprint})\r\n\tand b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "NUMERO DE TEST EXECUTION",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Gráfica que muestra el estado de los test execution por proyecto o por sprint",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "cu"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 3,
+        "y": 70
+      },
+      "id": 61,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "with _iss as(\r\n  SELECT\r\n    i.status as estado,\r\n    COUNT(DISTINCT i.id) as cuenta\r\n  FROM\r\n    issues i\r\n    JOIN sprint_issues si on i.id = si.issue_id\r\n    JOIN sprints s ON si.sprint_id = s.id\r\n    JOIN board_issues bi on i.id = bi.issue_id\r\n    JOIN boards b on bi.board_id = b.id\r\n    WHERE\r\n      i.type like 'TEST EXECUTION'\r\n      and s.name in (${sprint})\r\n      and b.id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\nSELECT\r\n estado AS st,\r\n cuenta AS cu\r\nFROM _iss\r\nORDER by estado",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ESTADO DE TEST EXECUTION",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 70
+      },
+      "id": 65,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Cantidad_de_Tests$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT test_Status as Estado_del_Test, count(distinct id_test) as Cantidad_de_Tests\r\nFROM xray_testExecutions\r\nwhere test_Status = 'PASSED'\r\nGROUP BY test_Status",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TEST SATISFACTORIOS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 70
+      },
+      "id": 66,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT test_Status as Estado_del_Test, count(distinct id_test) as Cantidad_de_Tests\r\nFROM xray_testExecutions\r\nGROUP BY test_Status",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CANTIDAD DE ESTADOS  DE TEST",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 5,
+        "x": 18,
+        "y": 70
+      },
+      "id": 53,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^percentage$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    COUNT(*) AS total_tests,\r\n    SUM(CASE WHEN test_Status = 'PASSED' THEN 1 ELSE 0 END) AS satisfactory_tests,\r\n    (SUM(CASE WHEN test_Status = 'PASSED' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS percentage\r\nFROM \r\n    xray_testExecutions;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "EFECTIVIDAD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Total de historias de tipo Test en toda la ejecución o por sprint",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 75
+      },
+      "id": 47,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^COUNT\\(DISTINCT i\\.id\\)$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.id)\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si on i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE\r\n\ti.type like 'TEST'\r\n\tand s.name in (${sprint})\r\n\tand b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "NUMERO DE TEST",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Gráfica que muestra el estado de los test por proyecto o por sprint",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "cu"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 3,
+        "y": 75
+      },
+      "id": 48,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "with _iss as(\r\n  SELECT\r\n    i.status as estado,\r\n    COUNT(DISTINCT i.id) as cuenta\r\n  FROM\r\n    issues i\r\n    JOIN sprint_issues si on i.id = si.issue_id\r\n    JOIN sprints s ON si.sprint_id = s.id\r\n    JOIN board_issues bi on i.id = bi.issue_id\r\n    JOIN boards b on bi.board_id = b.id\r\n    WHERE\r\n      i.type like 'TEST'\r\n      and s.name in (${sprint})\r\n      and b.id = '${proyecto}'\r\n  GROUP BY 1\r\n)\r\nSELECT\r\n estado AS st,\r\n cuenta AS cu\r\nFROM _iss\r\nORDER by estado",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ESTADO DE TEST",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Número de personas asignadas a los test del proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 75
+      },
+      "id": 50,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^total_Usuarios$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COUNT(DISTINCT i.assignee_name) AS total_Usuarios\r\nFROM\r\n  issues i\r\n  JOIN sprint_issues si ON i.id = si.issue_id\r\n  JOIN sprints s ON si.sprint_id = s.id\r\n  JOIN board_issues bi ON i.id = bi.issue_id\r\n  JOIN boards b ON bi.board_id = b.id\r\nWHERE\r\n   i.type like 'TEST'\r\n  AND b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "COLABORADORES ASIGNADOS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Nombre de las personas asignadas a los test del proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 75
+      },
+      "id": 54,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT i.assignee_name\r\nFROM issues i\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE \r\n  i.type LIKE 'TEST'\r\n  and i.assignee_name != ''\r\n  and b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TESTER ASIGNADOS",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 0,
+        "y": 80
+      },
+      "id": 67,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT test_Type as Tipo_de_Test, count(distinct id_test) as Cantidad_de_Tests\r\nFROM xray_testExecutions\r\nGROUP BY Tipo_de_Test",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CANTIDAD DE TIPO DE TEST",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Prioridad de la historia de tipo Test",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 80
+      },
+      "id": 55,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^priority$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT i.type, i.priority\r\nFROM issues i\r\n  JOIN board_issues bi on i.id = bi.issue_id\r\n  JOIN boards b on bi.board_id = b.id\r\nWHERE \r\n  i.type LIKE 'TEST'\r\n  and b.id = '${proyecto}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "PRIORIDAD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 80
+      },
+      "id": 68,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT test_Type\r\nFROM xray_testExecutions",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TIPO DE TEST",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 85
+      },
+      "id": 52,
+      "panels": [],
+      "title": "Seguridad",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Gráfica que muestra el estado del escaneo de los repositorios del proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ff0101",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "cu"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 86
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT policy, count(policy)\r\nFROM vc_applications_test\r\nWHERE UPPER(profileName) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n\tELSE UPPER('%DAVI-${proyecto:text}-%')\r\nEND\r\nGROUP BY  policy",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "ESTADO DEL ANÁLISIS",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Número de repositorios que cuentan con un escaneo de seguridad en el proyecto.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 6,
+        "y": 86
+      },
+      "id": 60,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Repository$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(distinct(profileName)) as Repository\r\nFROM vc_applications_test\r\nWHERE UPPER(profileName) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n\tELSE UPPER('%DAVI-${proyecto:text}-%')\r\nEND",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CANTIDAD RESPOSITORIOS",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Very High: Aplicaciones críticas para la misión del negocio o la seguridad de vida y salud.\nHigh: Aplicaciones importantes que, si se ven comprometidas, podrían afectar seriamente algunas funciones clave del negocio, pero no de manera catastrófica.\nMedium: Aplicaciones que, si se ven comprometidas, podrían causar molestias o afectar parcialmente las operaciones, pero sin un impacto mayor.\nLow: Aplicaciones que tienen un impacto mínimo en el negocio; su compromiso no sería crítico y podría ser manejado con poca interrupción.\nVery Low: Aplicaciones que son de baja importancia para el negocio, con un impacto casi nulo si son comprometidas.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 10,
+        "y": 86
+      },
+      "id": 58,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^businessCriticality$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT distinct(businessCriticality)\r\nFROM vc_applications_test\r\nWHERE UPPER(profileName) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n\tELSE UPPER('%DAVI-${proyecto:text}-%')\r\nEND",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CRITICIDAD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Tipo de análisis de seguridad que se realiza sobre los repositorios del proyecto.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 14,
+        "y": 86
+      },
+      "id": 59,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^scanType$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT distinct(scanType)\r\nFROM vc_applications_test\r\nWHERE UPPER(profileName) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%DAVI-SAPP-%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%DAVI-FRL-%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%DAVI-PWLS-%'\r\n\tELSE UPPER('%DAVI-${proyecto:text}-%')\r\nEND",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "TIPO DE ESCANEO",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "thresholds",
+            "seriesBy": "max"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ff001e",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 18,
+        "y": 86
+      },
+      "id": 56,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Score$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 60
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lake",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(score) AS Score\r\nFROM vc_flaws_test\r\nWHERE UPPER(flawPath) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "GENERAL SEGURIDAD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Resultado del escaneo por criticidad",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 91
+      },
+      "id": 62,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT severityCVE AS Severity, AVG(score) AS Score\r\nFROM vc_flaws_test\r\nWHERE UPPER(flawPath) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nGROUP BY severityCVE;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "RESULTADO ESCANEO",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Lenguaje en el que esta escrito el código del proyecto.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 6,
+        "y": 91
+      },
+      "id": 64,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^language$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT distinct(language)\r\nFROM vc_flaws_test\r\nWHERE UPPER(flawPath) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "LENGUAJE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "mysql"
+      },
+      "description": "Unidad de negocio a la que pertenece el proyecto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#757372",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 10,
+        "y": 91
+      },
+      "id": 63,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^businessUnitName$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "`db-mysql-insights-dav-t-01`",
+          "datasource": {
+            "type": "mysql",
+            "uid": "mysql"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT distinct(businessUnitName)\r\nFROM vc_applications_test\r\nWHERE UPPER(profileName) LIKE\r\nCASE \r\n\tWHEN '${proyecto:text}' = 'SUPERAPP' THEN '%SAPP%'\r\n\tWHEN '${proyecto:text}' = 'FRICTIONLESS' THEN '%FRL%'\r\n\tWHEN '${proyecto:text}' = 'PASSWORD' THEN '%PWLS%'\r\n\tELSE '%${proyecto:text}%'\r\nEND\r\nLIMIT 1",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "UNIDAD DE NEGOCIO",
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "mysql"
+        },
+        "definition": "SELECT\n    CONCAT(\n        CASE\n            WHEN id = 'jira:JiraBoard:1:42' THEN 'OAUTH'\n            WHEN id = 'jira:JiraBoard:2:8' THEN 'VIVI'\n            WHEN id = 'jira:JiraBoard:3:147' THEN 'FRICTIONLESS'\n            WHEN id = 'jira:JiraBoard:4:81' THEN 'SUPERAPP'\n            WHEN id = 'jira:JiraBoard:5:64' THEN 'PASSWORD'\n\t\t\tWHEN id = 'jira:JiraBoard:6:139' THEN 'ZONA PUBLICA'\n\t\t\tWHEN id = 'jira:JiraBoard:6:138' THEN 'APP EMPRESAS'\n\t\t\tWHEN id = 'jira:JiraBoard:6:83' THEN 'MULTIBANCO'\n\t\t\tWHEN id = 'jira:JiraBoard:6:70' THEN 'CONSUMO PSE'\n        END,\n        '--',\n        id\n    ) AS response\nFROM boards\nWHERE id LIKE 'jira%'",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Proyecto",
+        "multi": false,
+        "name": "proyecto",
+        "options": [],
+        "query": "SELECT\n    CONCAT(\n        CASE\n            WHEN id = 'jira:JiraBoard:1:42' THEN 'OAUTH'\n            WHEN id = 'jira:JiraBoard:2:8' THEN 'VIVI'\n            WHEN id = 'jira:JiraBoard:3:147' THEN 'FRICTIONLESS'\n            WHEN id = 'jira:JiraBoard:4:81' THEN 'SUPERAPP'\n            WHEN id = 'jira:JiraBoard:5:64' THEN 'PASSWORD'\n\t\t\tWHEN id = 'jira:JiraBoard:6:139' THEN 'ZONA PUBLICA'\n\t\t\tWHEN id = 'jira:JiraBoard:6:138' THEN 'APP EMPRESAS'\n\t\t\tWHEN id = 'jira:JiraBoard:6:83' THEN 'MULTIBANCO'\n\t\t\tWHEN id = 'jira:JiraBoard:6:70' THEN 'CONSUMO PSE'\n        END,\n        '--',\n        id\n    ) AS response\nFROM boards\nWHERE id LIKE 'jira%'",
+        "refresh": 1,
+        "regex": "/^(?<text>.*)--(?<value>.*)$/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [],
+          "value": []
+        },
+        "datasource": {
+          "type": "mysql",
+          "uid": "mysql"
+        },
+        "definition": "SELECT name\nFROM sprints\nWHERE original_board_id = '$proyecto'\n\nUNION ALL\n\nSELECT 'No hay resultados' AS name\nFROM (SELECT COUNT(*) AS cnt FROM sprints WHERE original_board_id = '$proyecto') AS sub\nWHERE sub.cnt = 0;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Sprint",
+        "multi": true,
+        "name": "sprint",
+        "options": [],
+        "query": "SELECT name\nFROM sprints\nWHERE original_board_id = '$proyecto'\n\nUNION ALL\n\nSELECT 'No hay resultados' AS name\nFROM (SELECT COUNT(*) AS cnt FROM sprints WHERE original_board_id = '$proyecto') AS sub\nWHERE sub.cnt = 0;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2023-02-09T06:02:29.096Z",
+    "to": "2024-10-26T19:49:28.408Z"
+  },
+  "timepicker": {
+    "hidden": true
+  },
+  "timezone": "America/Bogota",
+  "title": "Proyectos Agile Copy",
+  "uid": "ddxdwrgguk0zka",
+  "version": 2,
+  "weekStart": "monday"
+}

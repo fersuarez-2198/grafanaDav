@@ -1,0 +1,16 @@
+services:
+  grafana:
+    build: .
+    image: grafana-custom
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+    restart: always
+
+volumes:
+  grafana-storage:
+
